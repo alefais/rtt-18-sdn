@@ -1,0 +1,24 @@
+COMPILE_DEPS = [
+    '//lib:CORE_DEPS',
+    '//apps/intP4/pipeconf:onos-apps-intP4-pipeconf',
+]
+
+osgi_jar (
+    deps = COMPILE_DEPS,
+)
+
+BUNDLES = [
+    '//apps/intP4/intP4app:onos-apps-intP4-intP4app',
+]
+
+onos_app (
+    app_name = 'org.onosproject.intP4.intP4app',
+    title = 'INT P4 Application',
+    category = 'Steering',
+    url = 'http://onosproject.org',
+    description = 'Provides In-band Network Telemetry control between pairs of hosts in the network',
+    included_bundles = BUNDLES,
+    required_apps = [
+        'org.onosproject.intP4.pipeconf',
+    ]
+)

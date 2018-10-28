@@ -1,0 +1,249 @@
+tables {
+  preamble {
+    id: 33606914
+    name: "c_ingress.t_l2_fwd"
+    alias: "t_l2_fwd"
+  }
+  match_fields {
+    id: 1
+    name: "standard_meta.ingress_port"
+    bitwidth: 9
+    match_type: TERNARY
+  }
+  match_fields {
+    id: 2
+    name: "headers.eth_hdr.dst_addr"
+    bitwidth: 48
+    match_type: TERNARY
+  }
+  match_fields {
+    id: 3
+    name: "headers.eth_hdr.src_addr"
+    bitwidth: 48
+    match_type: TERNARY
+  }
+  match_fields {
+    id: 4
+    name: "headers.eth_hdr.ether_type"
+    bitwidth: 16
+    match_type: TERNARY
+  }
+  action_refs {
+    id: 16831479
+  }
+  action_refs {
+    id: 16822540
+  }
+  action_refs {
+    id: 16808599
+  }
+  action_refs {
+    id: 16800567
+  }
+  direct_resource_ids: 318778805
+  size: 1024
+  idle_timeout_behavior: NO_TIMEOUT
+}
+tables {
+  preamble {
+    id: 33606969
+    name: "c_ingress.t_int_ingress"
+    alias: "t_int_ingress"
+  }
+  match_fields {
+    id: 1
+    name: "headers.ipv4_hdr.dst_addr"
+    bitwidth: 32
+    match_type: LPM
+  }
+  action_refs {
+    id: 16784534
+  }
+  action_refs {
+    id: 16808599
+  }
+  size: 1024
+  idle_timeout_behavior: NO_TIMEOUT
+}
+tables {
+  preamble {
+    id: 33598594
+    name: "c_ingress.t_int_fwd"
+    alias: "t_int_fwd"
+  }
+  match_fields {
+    id: 1
+    name: "headers.int_hdr.path_id"
+    bitwidth: 32
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16831479
+  }
+  action_refs {
+    id: 16828656
+  }
+  action_refs {
+    id: 16808599
+  }
+  size: 1024
+  idle_timeout_behavior: NO_TIMEOUT
+}
+tables {
+  preamble {
+    id: 33561480
+    name: "c_egress.t_int_egress"
+    alias: "t_int_egress"
+  }
+  action_refs {
+    id: 16784426
+  }
+  action_refs {
+    id: 16800567
+  }
+  size: 1024
+  idle_timeout_behavior: NO_TIMEOUT
+}
+actions {
+  preamble {
+    id: 16800567
+    name: "NoAction"
+    alias: "NoAction"
+  }
+}
+actions {
+  preamble {
+    id: 16822540
+    name: "c_ingress.send_to_cpu"
+    alias: "send_to_cpu"
+  }
+}
+actions {
+  preamble {
+    id: 16831479
+    name: "c_ingress.set_out_port"
+    alias: "set_out_port"
+  }
+  params {
+    id: 1
+    name: "port"
+    bitwidth: 9
+  }
+}
+actions {
+  preamble {
+    id: 16808599
+    name: "c_ingress._drop"
+    alias: "_drop"
+  }
+}
+actions {
+  preamble {
+    id: 16784534
+    name: "c_ingress.int_ingress"
+    alias: "int_ingress"
+  }
+  params {
+    id: 1
+    name: "path_id"
+    bitwidth: 32
+  }
+}
+actions {
+  preamble {
+    id: 16828656
+    name: "c_ingress.int_egress"
+    alias: "int_egress"
+  }
+  params {
+    id: 1
+    name: "port"
+    bitwidth: 9
+  }
+}
+actions {
+  preamble {
+    id: 16784426
+    name: "c_egress.send_clone_to_cpu"
+    alias: "send_clone_to_cpu"
+  }
+}
+counters {
+  preamble {
+    id: 302003196
+    name: "c_ingress.tx_port_counter"
+    alias: "tx_port_counter"
+  }
+  spec {
+    unit: BOTH
+  }
+  size: 255
+}
+counters {
+  preamble {
+    id: 302045227
+    name: "c_ingress.rx_port_counter"
+    alias: "rx_port_counter"
+  }
+  spec {
+    unit: BOTH
+  }
+  size: 255
+}
+direct_counters {
+  preamble {
+    id: 318778805
+    name: "c_ingress.l2_fwd_counter"
+    alias: "l2_fwd_counter"
+  }
+  spec {
+    unit: BOTH
+  }
+  direct_table_id: 33606914
+}
+controller_packet_metadata {
+  preamble {
+    id: 67146229
+    name: "packet_in"
+    annotations: "@controller_header(\"packet_in\")"
+  }
+  metadata {
+    id: 1
+    name: "packet_in_type"
+    bitwidth: 9
+  }
+  metadata {
+    id: 2
+    name: "ingress_port"
+    bitwidth: 9
+  }
+  metadata {
+    id: 3
+    name: "ingress_global_timestamp"
+    bitwidth: 48
+  }
+  metadata {
+    id: 4
+    name: "egress_global_timestamp"
+    bitwidth: 48
+  }
+  metadata {
+    id: 5
+    name: "egress_port"
+    bitwidth: 9
+  }
+}
+controller_packet_metadata {
+  preamble {
+    id: 67121543
+    name: "packet_out"
+    annotations: "@controller_header(\"packet_out\")"
+  }
+  metadata {
+    id: 1
+    name: "egress_port"
+    bitwidth: 9
+  }
+}
+type_info {
+}
