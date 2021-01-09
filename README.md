@@ -1,2 +1,2 @@
 # rtt-18-sdn
-SDN project of the Networks and Technologies for Telecommunications course of the Computer Science and Networking Master's Degree @ University of Pisa
+SDN project of the Networks and Technologies for Telecommunications course of the Computer Science and Networking Master's Degree @ University of Pisa. A portion of an In-Band Telemetry application to monitor the latency of packets traversing a certain path/tunnel established between two switches has been implemented. Programming language/frameworks used are: Java, P4, P4 Runtime, ONOS, Mininet.
